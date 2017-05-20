@@ -1,0 +1,9 @@
+create database nogami;
+
+create table users(
+id integer NOT NULL auto_increment  PRIMARY KEY,
+name NVARCHAR(50) NOT NULL,
+food NVARCHAR(50) NOT NULL,
+created_at DATETIME,
+updated_at DATETIME
+);

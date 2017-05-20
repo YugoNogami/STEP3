@@ -1,0 +1,6 @@
+insert into users(name,food,created_at) values("いちろう", "ラーメン",cast('2016-05-20' as date));
+insert into users(name,food,created_at) values("じろう", "うどん",cast('2016-05-20' as date));
+insert into users(name,food,created_at) values("さぶろう", "そば",cast('2016-05-20' as date));
+insert into users(name,food,created_at) values("しろう", "パスタ",cast('2016-05-20' as date));
+insert into users(name,food,created_at) values("ごろう", "そうめん",cast('2016-05-20' as date));
+
