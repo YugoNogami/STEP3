@@ -1,0 +1,8 @@
+db:
+ adapter: mysql2
+ encoding: utf8
+ host: localhost
+ database: nogami
+ username: root
+ password: root123
+# socket: /var/run/mysqld/mysqld.sock #環境によって異なる
