@@ -5,7 +5,7 @@ require 'yaml'
 require 'hashie'
 
 # DB設定ファイルの読み込み
-config = YAML.load_file('./database.yml')
+config = YAML.load_file('./models/database.yml')
 ActiveRecord::Base.establish_connection(config["db"])
 
 name = "はちろう"
@@ -39,7 +39,7 @@ user = User.find_by(name: 'はちろう')
 user.update(food: 'さかな')
 
 #delete
-user = User.find_by(food: 'にく')
-user.destroy
-
-#
+#user = User.find_by(food: 'にく')
+#user.destroy
+user = User.find_by(name: "いちろう")
+p user[:food].class
