@@ -3,43 +3,33 @@ require 'mysql2'
 require "rubygems"
 require 'yaml'
 require 'hashie'
+require './models/user.rb'
+require 'sinatra'
 
-# DB設定ファイルの読み込み
-config = YAML.load_file('./database.yml')
-ActiveRecord::Base.establish_connection(config["db"])
-
-name = "はちろう"
-food = "つけめん"
-
-# モデルのクラスを宣言
-class User < ActiveRecord::Base
+#create
+get '/create/:name' do
+food="マクドナルド"
+user=User.create(name:params[:name],food:food)
+user.save
 end
 
-#create レコード追加
-#user=User.create(name:name,food:food)
-#user.save
 
 #read DB内のデータ確認
-p "全レコード"
-User.all.each do |v|
- p v
-end
-p "最初のレコード"
-p User.first
-p "最後のレコード"
-p User.last
-p "特定のレコード"
-User.where(name: 'ななろう').order('created_at DESC').each do |v|
- p v
+get '/read/:serch_id' do
+user=User.find_by(id: params[:serch_id])
+#user=User.find_by(name: "いちろう") 
+"id:" + user[:id].to_s + ", name:" + user[:name] + ", food:" + user[:food] + "\n"
+#params[:serch_id].class.to_s
 end
 
-#update DB内のデータ更新
-#User.where(name: "ゆうご").update_all(name: "はちろう")
-user = User.find_by(name: 'はちろう')
-user.update(food: 'さかな')
+#update
+get '/update/:name' do
+food="まつや"
+User.where(name: params[:name]).update_all(food:food)
+end
 
 #delete
-user = User.find_by(food: 'にく')
+get '/delete/:name' do
+user=User.find_by(name: params[:name])
 user.destroy
-
-#
+end

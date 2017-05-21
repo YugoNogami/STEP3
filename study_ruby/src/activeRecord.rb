@@ -39,7 +39,7 @@ user = User.find_by(name: 'はちろう')
 user.update(food: 'さかな')
 
 #delete
-user = User.find_by(food: 'にく')
-user.destroy
-
-#
+#user = User.find_by(food: 'にく')
+#user.destroy
+user = User.find_by(name: "いちろう")
+p user[:food].class
