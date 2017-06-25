@@ -10,4 +10,7 @@ ActiveRecord::Base.establish_connection(config["db"])
 
 # モデルのクラスを宣言
 class User < ActiveRecord::Base
+validates :name,presence: true,length: { minimum: 2 }
+validates :food,presence: true
 end
+
