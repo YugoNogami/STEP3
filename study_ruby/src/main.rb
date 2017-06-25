@@ -7,29 +7,54 @@ require './models/user.rb'
 require 'sinatra'
 
 #create
-get '/create/:name' do
-food="マクドナルド"
-user=User.create(name:params[:name],food:food)
-user.save
+post '/create' do
+begin
+data = JSON.parse(request.body.read)
+name= data["name"]
+food= data["food"]
+user=User.new(:name =>name,:food=>food)
+if user.valid?  then
+ user.save
+ "DB登録しました" + "name:" + name.to_s+ "\n"
+else 
+ user.errors.full_messages
+end
+rescue
+ "DB更新エラーです"
+end
 end
 
 
 #read DB内のデータ確認
 get '/read/:serch_id' do
+content_type :json
+begin
 user=User.find_by(id: params[:serch_id])
-#user=User.find_by(name: "いちろう") 
-"id:" + user[:id].to_s + ", name:" + user[:name] + ", food:" + user[:food] + "\n"
-#params[:serch_id].class.to_s
+user.to_json
+rescue
+ "DB更新エラーです"
+end
 end
 
 #update
-get '/update/:name' do
-food="まつや"
-User.where(name: params[:name]).update_all(food:food)
+put '/update/:id' do
+data = JSON.parse(request.body.read)
+name= data["name"]
+food= data["food"]
+begin
+user=User.where(id: params[:id]).update_all(name:name,food:food)
+rescue 
+ "DB更新エラーです"
+end
 end
 
 #delete
-get '/delete/:name' do
-user=User.find_by(name: params[:name])
+delete '/delete/:id' do
+begin
+user=User.find_by(id: params[:id])
 user.destroy
+"削除しました"
+rescue 
+ "DB更新エラーです"
+end
 end

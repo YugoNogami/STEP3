@@ -8,6 +8,7 @@ gem 'hashie'
 gem "sinatra-activerecord"
 gem "rspec"
 gem "factory_girl"
+gem "rails"
 
 group :test do
   gem 'rspec'
