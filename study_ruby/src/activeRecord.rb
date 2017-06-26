@@ -3,6 +3,7 @@ require 'mysql2'
 require "rubygems"
 require 'yaml'
 require 'hashie'
+require 'securerandom'
 
 # DB設定ファイルの読み込み
 config = YAML.load_file('./models/database.yml')
@@ -16,9 +17,14 @@ class User < ActiveRecord::Base
 end
 
 #create レコード追加
-#user=User.create(name:name,food:food)
-#user.save
-
+for num in 1..100000 do
+name = SecureRandom.hex(16)
+food = "food#{num}"
+user=User.create(name:name,food:food)
+user.save
+p "#{num}回目"
+end
+=begin
 #read DB内のデータ確認
 p "全レコード"
 User.all.each do |v|
@@ -43,3 +49,6 @@ user.update(food: 'さかな')
 #user.destroy
 user = User.find_by(name: "いちろう")
 p user[:food].class
+=end
+
+
